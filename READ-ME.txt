@@ -1,0 +1,15 @@
+READ-ME
+=======
+Execution.
+---------------
+1.Create a directory with the name OrderFood
+
+2.Copy the jar from the build folder to OrderFood folder created in step 1.
+
+3.Make sure that JAVA_HOME and PATH are set.
+
+4.run the following command from the command prompt java -jar JAR_NAME (OrderFood.jar) com.imaginea.restaurant.app.OrderFoodApp
+
+5. It will ask for Enter your order details.
+
+6.Enter the order in the following sequence "FileName item1 item2 ......."  

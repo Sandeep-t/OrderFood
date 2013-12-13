@@ -47,7 +47,7 @@ public class RequestProcessor {
 			}
 		}
 		if (checkFlag) {
-			Float price = minPrice(res, Arrays.asList(inputTokens).subList(1, tokensLength));
+			Float price = getMinimumPriceForRestaurant(res, Arrays.asList(inputTokens).subList(1, tokensLength));
 			if (price != 0 && priceMap.get(id) > price) {
 				priceMap.put(id, price);
 			}
@@ -103,7 +103,7 @@ public class RequestProcessor {
 
 	}
 
-	public Float minPrice(Restaurant res, List<String> items) {
+	public Float getMinimumPriceForRestaurant(Restaurant res, List<String> items) {
 		Float price = 0f;
 		Float mealPrice = 0f;
 

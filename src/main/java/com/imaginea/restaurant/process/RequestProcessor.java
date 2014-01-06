@@ -18,8 +18,8 @@ public class RequestProcessor {
 	private Map<Integer, List<String>> bestRestaurantMealMap;
 	private List<Integer> restaurantsList = null;
 
-	public void populateRestaurantPriceMap(int id, String[] inputTokens) {
-		Restaurant res = restaurantMap.get(id);
+	public void populateRestaurantPriceMap(int restaurantId, String[] inputTokens) {
+		Restaurant res = restaurantMap.get(restaurantId);
 		boolean checkFlag = true;
 		int tokensLength = inputTokens.length;
 		for (int i = 1; i < tokensLength; i++) {
@@ -33,23 +33,23 @@ public class RequestProcessor {
 			} else {
 				// If one of the requested item is missing then remove the
 				// restaurant from the priceMap
-				if (priceMap.get(id) != null) {
-					priceMap.remove(id);
+				if (priceMap.get(restaurantId) != null) {
+					priceMap.remove(restaurantId);
 				}
 				checkFlag = false;
 				break;
 			}
 			// check already items of this restaurant added to the priceMap
-			if (priceMap.get(id) == null) {
-				priceMap.put(id, price);
+			if (priceMap.get(restaurantId) == null) {
+				priceMap.put(restaurantId, price);
 			} else {
-				priceMap.put(id, price + priceMap.get(id));
+				priceMap.put(restaurantId, price + priceMap.get(restaurantId));
 			}
 		}
 		if (checkFlag) {
 			Float price = getMinimumPriceForRestaurant(res, Arrays.asList(inputTokens).subList(1, tokensLength));
-			if (price != 0 && priceMap.get(id) > price) {
-				priceMap.put(id, price);
+			if (price != 0 && priceMap.get(restaurantId) > price) {
+				priceMap.put(restaurantId, price);
 			}
 		}
 	}
@@ -122,11 +122,15 @@ public class RequestProcessor {
 				missingItems = temp;
 				finalMeal = meal;
 			} else {
-				if ((temp.size() < missingItems.size()) && (mealPriceMap.get(meal) > mealPriceMap.get(finalMeal))) {
+				
+				if (temp.size() < missingItems.size()) {
+					finalMeal = meal;
+					missingItems = temp;
+				} else if((temp.size() == missingItems.size()) && (mealPriceMap.get(meal) > mealPriceMap.get(finalMeal))){
 					finalMeal = meal;
 					missingItems = temp;
 				}
-			}
+				}
 		}
 		if (missingItems != null) {
 			for (String item : missingItems) {
